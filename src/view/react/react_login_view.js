@@ -1,73 +1,80 @@
 "use strict";
 
-class ReactLoginView extends React.Component // implements LoginView
-{
-    constructor(_props)
-    {
-        super(_props);
+import React from "react";
 
-        this.state = {
-            username: null,
-            password: null,
-            response: null
-        };
+export default class ReactLoginView extends React.Component {
+  // implements LoginView
+  constructor(_props) {
+    super(_props);
 
-        this.props.view.getUsername = this.getUsername.bind(this);
-        this.props.view.getPassword = this.getPassword.bind(this);
-        this.props.view.setActionResponse = this.setActionResponse.bind(this);
-    }
+    this.state = {
+      username: null,
+      password: null,
+      response: null,
+    };
 
-    getUsername() {
-        return this.state.username;
-    }
+    this.props.view.getUsername = this.getUsername.bind(this);
+    this.props.view.getPassword = this.getPassword.bind(this);
+    this.props.view.setActionResponse = this.setActionResponse.bind(this);
+  }
 
-    getPassword() {
-        return this.state.password;
-    }
+  getUsername() {
+    return this.state.username;
+  }
 
-    setActionResponse(_response)
-    {
-        this.setState({response: _response});
-    }
+  getPassword() {
+    return this.state.password;
+  }
 
-    render()
-    {
-        return (<div>
-                <div>Login:</div>
-                <section>
-                <form className="area"
-                onSubmit={event => this._handleSubmit(event)}>
-                <input className="row"
-                type="text" placeholder="Username or email"
-                value={this.state.username ? this.state.username : ""}
-                onChange={event => this._handleUsernameChange(event)} />
-                <input className="row"
-                type="password" placeholder="Password"
-                value={this.state.password ? this.state.password : ""}
-                onChange={event => this._handlePasswordChange(event)} />
-                <button className="row" type="submit">Login</button>
-                <div className="row">
-                {this.state.response ? this.state.response : ""}
-                </div>
-                </form>
-                </section>
-                </div>
-               );
-    }
+  setActionResponse(_response) {
+    this.setState({ response: _response });
+  }
 
-    _handleUsernameChange(_event)
-    {
-        this.setState({username: _event.target.value});
-    }
+  render() {
+    return (
+      <div>
+        <div>Login:</div>
+        <section>
+          <form
+            className="area"
+            onSubmit={(event) => this._handleSubmit(event)}
+          >
+            <input
+              className="row"
+              type="text"
+              placeholder="Username or email"
+              value={this.state.username ? this.state.username : ""}
+              onChange={(event) => this._handleUsernameChange(event)}
+            />
+            <input
+              className="row"
+              type="password"
+              placeholder="Password"
+              value={this.state.password ? this.state.password : ""}
+              onChange={(event) => this._handlePasswordChange(event)}
+            />
+            <button className="row" type="submit">
+              Login
+            </button>
+            <div className="row">
+              {this.state.response ? this.state.response : ""}
+            </div>
+          </form>
+        </section>
+      </div>
+    );
+  }
 
-    _handlePasswordChange(_event)
-    {
-        this.setState({password: _event.target.value});
-    }
+  _handleUsernameChange(_event) {
+    this.setState({ username: _event.target.value });
+  }
 
-    _handleSubmit(_event)
-    {
-        _event.preventDefault(); // prevent form refreshing on submit
-        this.props.view.actionLogin();
-    }
+  _handlePasswordChange(_event) {
+    this.setState({ password: _event.target.value });
+  }
+
+  _handleSubmit(_event) {
+    _event.preventDefault(); // prevent form refreshing on submit
+    this.props.view.actionLogin();
+  }
 }
